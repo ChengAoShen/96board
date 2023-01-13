@@ -1,0 +1,7 @@
+path: ../../data/v1
+train: images
+val: images
+test:  # test images (optional)
+
+names:
+  0: 96-board
