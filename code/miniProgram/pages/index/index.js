@@ -4,8 +4,10 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
 
+ 
+  data: {
+    
     goods_photo: '',
     goods_photo_flag: false,
     goods_photo_url: '',
@@ -34,28 +36,25 @@ Page({
 
 //必要函数2
 chooseImage() {
-  let _this = this
   wx.chooseMedia({
-      count: 1,
-      mediaType:['image'],
-      sourceType: ['album'],
-      success (res) {
-        console.log(res.tempFiles[0].tempFilePath)
-          const tempFilePath = res.tempFiles[0].tempFilePath
-          _this.setData({
-            goods_photo :tempFilePath,
-            goods_photo_flag : true
-          })
-          wx.uploadFile({
-            url: 'http://127.0.0.1:5000/photo', 
-            filePath: _this.goods_photo,
-            name: 'file',
-            success (res){
-              const data = res.data
-            }
-          })
-      }
+    success (res) {
+      const tempFilePaths = res.tempFiles[0].tempFilePath
+      console.log(tempFilePaths)
+      wx.uploadFile({
+        url: 'http://127.0.0.1:5000/photo', //仅为示例，非真实的接口地址
+        filePath: tempFilePaths,
+        name: 'file',
+        formData: {
+          'user': 'test'
+        },
+        success (res){
+          const data = res.data
+          //do something
+        }
+      })
+    }
   })
+  
 },
 
   /**
