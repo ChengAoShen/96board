@@ -24,7 +24,7 @@ Page({
             if (res.tapIndex == 0) {
                 _this.chooseImage()
                 wx.navigateTo({
-                  url: '/second/second/second',
+                  url: '/pages/second/second',
                   })
             }
         },
@@ -49,7 +49,7 @@ chooseImage() {
         },
         success (res){
           const data = res.data
-          //do something
+          console.log(data)
         }
       })
     }

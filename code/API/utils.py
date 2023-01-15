@@ -25,3 +25,9 @@ def cutting_photo(path):
             cv2.imwrite(f"./cache/cutting_photo/{currentID}.jpg",crop_img)
 
     return ID_list
+
+
+def get_data(image_id,num):
+    """输入板的ID和需要的孔编号返回RGBHSV数据 """
+    ...
+
