@@ -1,1 +1,21 @@
-/* pages/index/index.wxss */
+page1{
+  width: 100rpx;
+  height: 100%;
+}
+
+.container1{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  height: 1200rpx;
+}
+.whole1{
+  background-color:lightsteelblue;
+  width: 750rpx;
+  height: 1200rpx;
+  align-items:center;
+}
+page{
+  height: 100%;
+  background-color: lightsteelblue;
+}
