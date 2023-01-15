@@ -1,0 +1,6 @@
+<view class="whole1">
+  <view class="container1">
+    <image class="page1" src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/%E8%BF%90%E7%94%A8.png?sign=470d4745abf751e9d42e7816120898b2&t=1673677571" mode="widthFix" bindtap="uploadImg">
+    </image>
+  </view>
+</view>
