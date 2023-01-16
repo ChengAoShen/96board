@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index", 
-    "second/second/second"
+    "pages/second/second"
   ],
   "window": {
     "backgroundTextStyle": "dark",
