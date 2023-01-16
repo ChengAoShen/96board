@@ -7,15 +7,15 @@ page1{
   display: flex;
   justify-content: center;
   align-items:center;
-  height: 1200rpx;
+  height: 1000rpx;
 }
 .whole1{
-  background-color:lightsteelblue;
+  background-color:rgb(181, 196, 220);
   width: 750rpx;
   height: 1200rpx;
   align-items:center;
 }
 page{
   height: 100%;
-  background-color: lightsteelblue;
+  background-color: rgb(181, 196, 220);
 }

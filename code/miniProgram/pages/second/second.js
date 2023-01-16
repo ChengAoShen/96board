@@ -5,15 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg:'no'
-
+    cutConfig:'',
+    msg:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.setData({
+      cutConfig:options
+    })
+    console.log(this.data.cutConfig)
   },
 
   /**

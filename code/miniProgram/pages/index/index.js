@@ -7,13 +7,20 @@ Page({
 
  
   data: {
-    
-    goods_photo: '',
-    goods_photo_flag: false,
-    goods_photo_url: '',
+    goods_photo_flag:'',
+    good_url: '',
     flag_tp: false
 
   },
+
+  //跳转到第二页
+  JumpNext(){
+    let _this = this
+    wx.reLaunch({
+      url: '/pages/second/second?url='+_this.data.goods_photo_flag,
+    })
+  },
+
   //跳转函数1
   uploadImg () {
     let _this = this
@@ -24,7 +31,7 @@ Page({
             if (res.tapIndex == 0) {
                 _this.chooseImage()
                 wx.navigateTo({
-                  url: '/pages/second/second',
+                  url: '/second/second/second',
                   })
             }
         },
@@ -34,8 +41,9 @@ Page({
     })
 },
 
-//必要函数2
+//选择照片
 chooseImage() {
+  let _this = this
   wx.chooseMedia({
     success (res) {
       const tempFilePaths = res.tempFiles[0].tempFilePath
@@ -49,12 +57,12 @@ chooseImage() {
         },
         success (res){
           const data = res.data
-          console.log(data)
+          //do something
         }
       })
     }
   })
-  
+  _this.JumpNext()
 },
 
   /**

@@ -5,7 +5,7 @@
 }
 .inner{
   background-color:lightskyblue;
-  height:650rpx;
+  height:500rpx;
   width:600rpx;
   border:lavender 8rpx outset;
   margin:10rpx;  
@@ -35,4 +35,12 @@
 .bottomhoder{
   background-color: lightsteelblue;
 
+}
+
+.photo{
+  display: flex;
+  width:4000px;
+  height:100%;
+
+  
 }
