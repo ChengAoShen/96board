@@ -17,7 +17,7 @@ def post_photo():
     photo_name = file.filename
 
     # 在本地存储图片
-    path = f"./cache/raw_photo/{photo_name}.jpg"
+    path = f"./cache/raw_photo/{photo_name}"
     npimg = np.frombuffer(image, np.uint8)
     image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
     cv2.imwrite(path,image)

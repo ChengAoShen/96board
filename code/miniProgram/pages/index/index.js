@@ -1,16 +1,14 @@
 // pages/index/index.js
-Page({
+import config from '../../utils/config'
 
+Page({
   /**
    * 页面的初始数据
    */
-
- 
   data: {
     goods_photo_flag:'',
     good_url: '',
     flag_tp: false
-
   },
 
   //跳转到第二页
@@ -49,30 +47,32 @@ chooseImage() {
       _this.setData({
         flag_tp:true,
         good_url:tempFilePaths
-
       })
- 
     }
   })
-
 },
 
-//上传
+//上传图片
 handIN(){
-  let _this=this
+  console.log("upload image")
+  let _this=this;
   wx.uploadFile({
-    url: 'http://127.0.0.1:5000/photo', 
-    filePath: _this.goods_photo,
+    url: config.host + '/photo',
+    filePath: _this.data.good_url,
     name: 'file',
-    success (res){
-      const data = res.data 
+    success(res) {
+      console.log(res)
       _this.setData({
-        goods_photo_flag:data,
+        goods_photo_flag: res.data.data
       })
+      console.log(_this.data.goods_photo_flag)
+      _this.JumpNext()
     },
-
+    fail(res) {
+      console.log("fail")
+      console.log(res)
+    }
   })
-  this.JumpNext()
 },
 
   /**
