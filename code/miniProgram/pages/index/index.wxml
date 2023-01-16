@@ -1,6 +1,14 @@
 <view class="whole1">
   <view class="container1">
-    <image class="page1" src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/%E8%BF%90%E7%94%A8.png?sign=470d4745abf751e9d42e7816120898b2&t=1673677571" mode="widthFix" bindtap="uploadImg">
+  <block wx:if="{{flag_tp}}">
+  <image src="{{good_url}}" mode="aspectFit"></image>
+  </block>
+<block wx:if="{{!flag_tp}}">
+    <image class="page1" src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/%E8%83%8C%E6%99%AFreal.png?sign=28b191f42793a120a4274a7229dca71e&t=1673843646" mode="widthFix" bindtap="uploadImg">
     </image>
+</block>
   </view>
+<block wx:if="{{good_url}}">
+<button  bindtap="handIN" >确认选择该图片</button>
+</block>
 </view>

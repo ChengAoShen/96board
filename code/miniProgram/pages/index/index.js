@@ -7,13 +7,20 @@ Page({
 
  
   data: {
-    
-    goods_photo: '',
-    goods_photo_flag: false,
-    goods_photo_url: '',
+    goods_photo_flag:'',
+    good_url: '',
     flag_tp: false
 
   },
+
+  //跳转到第二页
+  JumpNext(){
+    let _this = this
+    wx.reLaunch({
+      url: '/pages/second/second?url='+_this.data.goods_photo_flag,
+    })
+  },
+
   //跳转函数1
   uploadImg () {
     let _this = this
@@ -23,9 +30,6 @@ Page({
             console.log(res.tapIndex)
             if (res.tapIndex == 0) {
                 _this.chooseImage()
-                wx.navigateTo({
-                  url: '/second/second/second',
-                  })
             }
         },
         fail (res) {
@@ -34,27 +38,41 @@ Page({
     })
 },
 
-//必要函数2
+//选择照片
 chooseImage() {
+  let _this = this
   wx.chooseMedia({
     success (res) {
       const tempFilePaths = res.tempFiles[0].tempFilePath
       console.log(tempFilePaths)
-      wx.uploadFile({
-        url: 'http://127.0.0.1:5000/photo', //仅为示例，非真实的接口地址
-        filePath: tempFilePaths,
-        name: 'file',
-        formData: {
-          'user': 'test'
-        },
-        success (res){
-          const data = res.data
-          //do something
-        }
+      _this.setData({
+        flag_tp: true,
+        good_url:tempFilePaths
       })
     }
   })
-  
+ 
+},
+
+//上传图片
+handIN(){
+  let _this = this
+  wx.uploadFile({
+    url: 'http://127.0.0.1:5000/photo', 
+    filePath: _this.data.good_url,
+    name: 'file',
+    formData: {
+      'user': 'test'
+    },
+    success (res){
+      const data = res.data
+      console.log(data)
+      _this.setData({
+        goods_photo_flag:data
+      })
+    }
+  })
+  _this.JumpNext()
 },
 
   /**
