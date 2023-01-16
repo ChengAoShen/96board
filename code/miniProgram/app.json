@@ -1,9 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/second/second"
-    
-    
+    "pages/index/index", 
+    "second/second/second"
   ],
   "window": {
     "backgroundTextStyle": "dark",

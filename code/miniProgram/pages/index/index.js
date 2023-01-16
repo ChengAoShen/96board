@@ -30,6 +30,9 @@ Page({
             console.log(res.tapIndex)
             if (res.tapIndex == 0) {
                 _this.chooseImage()
+                wx.navigateTo({
+                  url: '/second/second/second',
+                  })
             }
         },
         fail (res) {
@@ -45,30 +48,17 @@ chooseImage() {
     success (res) {
       const tempFilePaths = res.tempFiles[0].tempFilePath
       console.log(tempFilePaths)
-      _this.setData({
-        flag_tp: true,
-        good_url:tempFilePaths
-      })
-    }
-  })
- 
-},
-
-//上传图片
-handIN(){
-  let _this = this
-  wx.uploadFile({
-    url: 'http://127.0.0.1:5000/photo', 
-    filePath: _this.data.good_url,
-    name: 'file',
-    formData: {
-      'user': 'test'
-    },
-    success (res){
-      const data = res.data
-      console.log(data)
-      _this.setData({
-        goods_photo_flag:data
+      wx.uploadFile({
+        url: 'http://127.0.0.1:5000/photo', //仅为示例，非真实的接口地址
+        filePath: tempFilePaths,
+        name: 'file',
+        formData: {
+          'user': 'test'
+        },
+        success (res){
+          const data = res.data
+          //do something
+        }
       })
     }
   })
