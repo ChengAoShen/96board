@@ -5,7 +5,7 @@
 <view class="hoder">
   <view class="inner">
      <block wx:if="False">
-        <image src="{{cutting_url}}" class="photo"></image>
+        <image src="{{cutting_url}}"></image>
      </block>
   </view>
              <view wx:for="{{colorData}}"></view>

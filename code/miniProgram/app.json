@@ -1,7 +1,9 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/second/second"
+
     
   ],
   

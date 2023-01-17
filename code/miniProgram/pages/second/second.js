@@ -9,6 +9,7 @@ Page({
     cutting_url:'',
     host:config.host,
     colorData:'',
+    sendData:'',
   },
 
   /**
@@ -76,6 +77,13 @@ Page({
       console.log(this.msg)
     },
   })
+  },
+  //更改值
+  setData:function(Event){
+    console.log(Event.detail.value)
+    this.setData({
+      sendData:e.detail.value
+    } )
   },
 //提交行列位置
 commmit(){
