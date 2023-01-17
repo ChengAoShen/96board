@@ -7,7 +7,8 @@ Page({
    */
   data: {
     cutting_url:'',
-    host:config.host
+    host:config.host,
+    colorData:'',
   },
 
   /**
@@ -76,7 +77,20 @@ Page({
     },
   })
   },
+//提交行列位置
+commmit(){
+  _this = this
+  wx.request({
+    url: '_this.data.host',
+    success (res) {
+      console.log("co函数调用成功")
+      _this.setData({
+        colorData:res.data
+      })
+    }
+  })
 
+},
   /**
    * 用户点击右上角分享
    */
