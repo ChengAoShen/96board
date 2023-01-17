@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/index/index", 
+    "pages/index/index",
     "pages/second/second"
+    
   ],
+  
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#efefef",

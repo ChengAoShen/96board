@@ -2,9 +2,9 @@
 <image src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/dd.png?sign=1cb7af604e6fda15e838c69da76106f3&t=1673770547" mode="top left" class="image"></image>
  </view>
   <view class="hoder">
-  <view class="inner">
+  <view class="inner" >
  <block wx:if="true"><image src="http://127.0.0.1:5000/{{cutConfig.url}}"></image></block>
- <image src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/IMG_20221207_164651.jpg?sign=5ee8d64eab0ab50da484bb9df636bf1b&t=1673875965"  mode="widthFix" class="photo"></image>
+ <image src="https://7374-start-7gjum2ofbedc2cc1-1316425622.tcb.qcloud.la/IMG_20221207_164651.jpg?sign=5ee8d64eab0ab50da484bb9df636bf1b&t=1673875965"  mode="aspectFit" class="photo"></image>
    
   </view>
  
