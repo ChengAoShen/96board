@@ -1,22 +1,24 @@
 // second/second/second.js
+import config from '../../utils/config'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cutConfig:'',
-    msg:''
+    cutting_url:'',
+    host:config.host
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let url = config.host+options.url
+    console.log(url)
     this.setData({
-      cutConfig:options
+      cutting_url:url
     })
-    console.log(this.data.cutConfig)
   },
 
   /**
@@ -64,7 +66,7 @@ Page({
   //请求上传的图片
   ask(){
   wx.request({
-    url: 'http://127.0.0.1:5000/photoldata/IMG_20221207_172228.jpg',
+    url: "",
     method:'GET',
     success: (res) => {
       console.log(res.data)

@@ -8,10 +8,9 @@ from utils import cutting_photo
  
 app=Flask(__name__)
  
-# 定义路由
+# 图片上传接口
 @app.route("/photo", methods=['POST'])
 def post_photo():
-    # 获取图片
     file = request.files['file']
     image = file.read()
     photo_name = file.filename
@@ -28,14 +27,7 @@ def post_photo():
     return f"/photo/cutting/{id_list[0]}"
 
 
-@app.route("/photo/raw/<imageId>")
-def get_raw_photo(imageId):
-    # 图片上传保存的路径
-    with open(f'./cache/raw_photo/{imageId}.jpg', 'rb') as f:
-        image = f.read()
-        resp = Response(image, mimetype="image/jpg")
-        return resp
-
+# 返回裁剪后图片
 @app.route("/photo/cutting/<imageId>")
 def get_cutting_photo(imageId):
     # 图片上传保存的路径
@@ -44,6 +36,13 @@ def get_cutting_photo(imageId):
         resp = Response(image, mimetype="image/jpg")
         return resp
 
+# 静态图片返回接口
+@app.route("/static/image/<fileName>")
+def get_static_image(fileName):
+    with open(f'./static/image/{fileName}', 'rb') as f:
+        image = f.read()
+        resp = Response(image, mimetype="image/jpg")
+        return resp
 
 # TODO:制定定时清理图片的任务
 
