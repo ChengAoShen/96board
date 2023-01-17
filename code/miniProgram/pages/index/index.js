@@ -8,7 +8,8 @@ Page({
   data: {
     goods_photo_flag: '',
     good_url: '',
-    flag_tp: false
+    flag_tp: false,
+    host:config.host
   },
 
   //跳转到第二页

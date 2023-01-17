@@ -1,5 +1,4 @@
 import requests
-import base64
  
 # API地址
 url = "http://127.0.0.1:5000/photo"

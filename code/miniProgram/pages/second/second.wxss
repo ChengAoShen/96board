@@ -41,6 +41,4 @@
   display: flex;
   width:4000px;
   height:100%;
-
-  
 }

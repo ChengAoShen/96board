@@ -7,7 +7,7 @@ Page({
    */
   data: {
     cutting_url:'',
-    msg:''
+    host:config.host
   },
 
   /**
