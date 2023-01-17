@@ -5,8 +5,8 @@
 }
 .inner{
   background-color:lightskyblue;
-  height:700rpx;
-  width:700rpx;
+  height:600rpx;
+  width:900rpx;
   border:lavender 8rpx outset;
   margin:10rpx;  
   box-sizing:border-box;
@@ -39,12 +39,10 @@
 
 .photo{
   display: flex;
-  width:680rpx;
-  height:100%;
+  width:95%;
+  height:40%;
   position: absolute;
-  top:-80rpx;
 }
 .text{
   width:100%;
-
 }
