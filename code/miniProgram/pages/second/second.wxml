@@ -4,16 +4,18 @@
 
 <view class="hoder">
   <view class="inner">
-     <block wx:if="False">
+
         <image src="{{cutting_url}}"></image>
-     </block>
+   
   </view>
-             <view wx:for="{{colorData}}"></view>
+             
 </view>
 
 <view class="text">
-  <input placeholder="请输入行列排布 eg:3,4为3行4列" bindinput="setData" ></input>
-  <button bindtap="commmit">确认行列选值</button>
+<form bindsubmit="formSubmit">
+  <input type='text' name='words' placeholder="请输入行列排布 eg:3,4为3行4列"></input>
+  <button bindtap="commmit" form-type="submit">确认行列选值</button>
+</form>
 </view> 
 
 <view class="bottomhoder">

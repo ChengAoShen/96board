@@ -16,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+  
     let url = config.host+options.url
     console.log(url)
     this.setData({
@@ -79,23 +80,33 @@ Page({
   })
   },
   //更改值
-  setData:function(Event){
-    console.log(Event.detail.value)
+  formSubmit: function (e) {
+    console.log(e.detail.value)
+    let name = e.detail.value.words
     this.setData({
-      sendData:e.detail.value
-    } )
+      sendData:name
+    })
   },
+
 //提交行列位置
 commmit(){
-  _this = this
+  let _this = this
   wx.request({
     url: '_this.data.host',
+    method:'POST',
+    data:{
+     x: _this.data.sendData,
+    },
     success (res) {
       console.log("co函数调用成功")
       _this.setData({
         colorData:res.data
       })
-    }
+    },
+    fail(res){
+      console.log("fail")
+      console.log(res)
+    },
   })
 
 },
