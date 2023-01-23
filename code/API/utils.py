@@ -11,11 +11,12 @@ def cutting_photo(path):
     根据锚框裁剪图片并存入cache中并返回寻找到的ID列表
     """
     img = cv2.imread(path)
-    outputs = model(path,return_outputs=True)
+    outputs = model(path)
 
     ID_list = [] #! 现阶段是只有一块板子，这样设计是为了之后变成更多的板子之后可以使用
     for output in outputs:
-        for box in output["det"]:
+        boxes = output.boxes.boxes
+        for box in boxes:
             # 给图片加载UUID
             currentID = uuid.uuid1()
             ID_list.append(currentID)

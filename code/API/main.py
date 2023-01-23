@@ -36,6 +36,12 @@ def get_cutting_photo(imageId):
         resp = Response(image, mimetype="image/jpg")
         return resp
 
+
+@app.route("/data/<imageId>")
+def get_data(imageId):
+    ...
+
+
 # 静态图片返回接口
 @app.route("/static/image/<fileName>")
 def get_static_image(fileName):
@@ -43,6 +49,8 @@ def get_static_image(fileName):
         image = f.read()
         resp = Response(image, mimetype="image/jpg")
         return resp
+
+        
 
 # TODO:制定定时清理图片的任务
 
