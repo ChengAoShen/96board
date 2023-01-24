@@ -6,3 +6,4 @@ requests
 ultralytics==8.0.17
 torch
 torchvision
+flask-apscheduler

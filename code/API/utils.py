@@ -27,10 +27,22 @@ def cutting_photo(path):
     return ID_list
 
 
-def get_data(imageId: str, id_list: list)->dict:
+def get_data(imageId: str, id_list: list) -> dict:
     """输入板的ID和需要的孔编号返回RGBHSV数据 """
     ans = dict()
     img = cv2.imread(f"./cache/cutting_photo/{imageId}.jpg")
-    for item in id_list:
-        ...
-    
+    B, G, R = cv2.split(img)
+    HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    H, S, V = cv2.split(HSV)
+    data = [R, G, B, H, S, V]
+
+    shape = B.shape
+    row_block = shape[0]//12
+    column_block = shape[1]//8
+
+    for id in id_list:
+        ans[str(id)] = []
+        for color in data:
+            # 提取每一个区域中心点数据
+            ans[str(id)].append(int(color[row_block*((id-1)//12)+row_block//2][column_block*((id-1) % 12)+column_block//2]))
+    return ans

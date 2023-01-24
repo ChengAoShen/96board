@@ -16,7 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let url = config.host+options.url
+    let url = config.host+"/photo/cutting/"+options.url
     console.log(url)
     this.setData({
       cutting_url:url
