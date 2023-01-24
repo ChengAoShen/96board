@@ -2,9 +2,9 @@ import base64
 import uuid
 import numpy as np
 import cv2
-from flask import request,Flask,Response
+from flask import request,Flask,Response,jsonify
 
-from utils import cutting_photo
+from utils import cutting_photo,get_data
  
 app=Flask(__name__)
  
@@ -36,6 +36,18 @@ def get_cutting_photo(imageId):
         resp = Response(image, mimetype="image/jpg")
         return resp
 
+
+@app.route("/data/<imageId>",methods=['POST'])
+def get_data(imageId):
+    data=request.json["num"]
+
+    # ans = get_data(imageId,data)
+
+    ans={"11":[1,2,3,5,3,1],
+         "12":[1,2,3,5,3,1] }
+    return jsonify(ans)
+
+
 # 静态图片返回接口
 @app.route("/static/image/<fileName>")
 def get_static_image(fileName):
@@ -44,7 +56,9 @@ def get_static_image(fileName):
         resp = Response(image, mimetype="image/jpg")
         return resp
 
+        
+
 # TODO:制定定时清理图片的任务
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

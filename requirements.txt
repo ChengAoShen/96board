@@ -3,6 +3,6 @@ numpy
 matplotlib
 opencv-python
 requests
-ultralytics
+ultralytics==8.0.17
 torch
 torchvision
