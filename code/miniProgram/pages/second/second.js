@@ -16,7 +16,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-  
     let url = config.host+options.url
     console.log(url)
     this.setData({
@@ -102,7 +101,7 @@ commmit(){
       _this.setData({
         colorData:res.data
       })
-    },
+    }
     fail(res){
       console.log("fail")
       console.log(res)
