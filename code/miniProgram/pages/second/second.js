@@ -8,8 +8,10 @@ Page({
   data: {
     cutting_url:'',
     host:config.host,
-    colorData:'',
-    sendData:'',
+    colorData:[],
+    sendData:[],
+    send_url:'',
+    id:'',
   },
 
   /**
@@ -17,9 +19,13 @@ Page({
    */
   onLoad(options) {
     let url = config.host+options.url
-    console.log(url)
+    let url2 = config.host+/data/+options.url
+    let id =options.url
+    console.log(url2)
     this.setData({
-      cutting_url:url
+      cutting_url:'http://127.0.0.1:5000/photo/cutting/'+id,
+      send_url:url2,
+      id:options.url,
     })
   },
 
@@ -80,33 +86,40 @@ Page({
   },
   //更改值
   formSubmit: function (e) {
+    let _this = _his
     console.log(e.detail.value)
-    let name = e.detail.value.words
+    let name = e.detail.value.hang
+    let name2 = e.detail.value.lie
+    let name3 =(Number(name)-1)*12+Number(name2)
     this.setData({
-      sendData:name
+      sendData:[_this.data.sendData +' '+name3]
     })
+    console.log(name3)
   },
 
 //提交行列位置
-commmit(){
+commit(){
   let _this = this
-  wx.request({
-    url: '_this.data.host',
+  console.log(_this.data.send_url)
+  wx.request({  
+    url: 'http://127.0.0.1:5000/data/'+_this.data.id,
     method:'POST',
     data:{
-     x: _this.data.sendData,
-    },
+    "num":[_this.data.sendData]
+  },
     success (res) {
       console.log("co函数调用成功")
+      console.log(res.data)
       _this.setData({
-        colorData:res.data
+        colorData:[_this.data.colorData+[ res.data[14][0]+ ','+res.data[14][1]+ ','+res.data[14][2]+','+res.data[14][3]+','+res.data[14][4]+','+res.data[14][5] ] ]
       })
-    }
+    },
     fail(res){
       console.log("fail")
       console.log(res)
     },
   })
+  
 
 },
   /**

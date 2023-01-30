@@ -7,14 +7,16 @@
 
         <image src="{{cutting_url}}"></image>
    
-  </view>
-             
+  </view>       
 </view>
+    <view><view>{{colorData}}</view></view>
 
-<view class="text">
+<view class="text" style="opacity:{{1}}">
 <form bindsubmit="formSubmit">
-  <input type='text' name='words' placeholder="请输入行列排布 eg:3,4为3行4列"></input>
-  <button bindtap="commmit" form-type="submit">确认行列选值</button>
+  <input type='text' name='hang'  type="primary" placeholder="请输入行排布"  ></input>
+  <input type='text' name='lie' placeholder="请输入列排布"   ></input>
+  <button bindtap="commit" form-type="submit"  style="opacity:{{0.4}}">确认行列选值</button>
+  <button  formType="reset" style="opacity:{{0.5}}">清空</button>
 </form>
 </view> 
 
