@@ -34,15 +34,15 @@ def get_data(imageId: str, id_list: list) -> dict:
     B, G, R = cv2.split(img)
     HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     H, S, V = cv2.split(HSV)
-    data = [R, G, B, H, S, V]
-
+    data = [R, G, B, H, S, V] #获得在全位置的RGBHSV数据
     shape = B.shape
-    row_block = shape[0]//12
-    column_block = shape[1]//8
+
+    row_block:int = shape[0]//12
+    column_block:int = shape[1]//8
 
     for id in id_list:
         ans[str(id)] = []
         for color in data:
             # 提取每一个区域中心点数据
-            ans[str(id)].append(int(color[row_block*((id-1)//12)+row_block//2][column_block*((id-1) % 12)+column_block//2]))
+            ans[str(id)].append(int(color[row_block*((id-1)%12)+row_block//2][column_block*((id-1) // 12)+column_block//2]))
     return ans
