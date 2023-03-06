@@ -1,10 +1,11 @@
 import base64
 import uuid
+
 import numpy as np
 import cv2
 from flask import request, Flask, Response, jsonify
 
-from utils import cutting_photo, get_data
+from utils import cutting_photo, get_data,quick_judge
 
 app = Flask(__name__)
 
@@ -41,12 +42,17 @@ def get_cutting_photo(imageId):
 @app.route("/data/<imageId>", methods=['POST'])
 def get_RGB(imageId):
     data = request.json["num"]
-
-    ans = get_data(imageId,data)
+    path = f"./cache/cutting_photo/{imageId}.jpg"
+    ans = get_data(path,data)
     print(ans)
     print(type(ans))
     return jsonify(ans)
 
+# 对于图片进行快检
+@app.route("/quick_detection/<imageId>")
+def quick_detection(imageId):
+    path = f"./cache/cutting_photo/{imageId}.jpg"
+    return str(quick_judge(path))
 
 # 静态图片返回接口
 @app.route("/static/image/<fileName>")
