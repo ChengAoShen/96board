@@ -138,5 +138,3 @@ def quick_judge(path,tol:int)->List[str]:
                 ans.append(num_to_char(num))
                 continue
     return ans
-
-
