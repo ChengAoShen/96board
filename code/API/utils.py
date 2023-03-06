@@ -37,12 +37,17 @@ def get_data(imageId: str, id_list: list) -> dict:
     data = [R, G, B, H, S, V] #获得在全位置的RGBHSV数据
     shape = B.shape
 
-    row_block:int = shape[0]//12
-    column_block:int = shape[1]//8
+    row_block:int = shape[1]//12
+    column_block:int = shape[0]//8
 
     for id in id_list:
         ans[str(id)] = []
+
+        # 计算孔位位置
+        location_row = row_block*((id-1)%12)+row_block//2
+        location_column = column_block*((id-1) // 12)+column_block//2
+
         for color in data:
-            # 提取每一个区域中心点数据
-            ans[str(id)].append(int(color[row_block*((id-1)%12)+row_block//2][column_block*((id-1) // 12)+column_block//2]))
+            # 提取每一个颜色的数据  
+            ans[str(id)].append(int(color[location_row][location_column]))
     return ans

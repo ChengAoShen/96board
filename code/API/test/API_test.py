@@ -3,7 +3,7 @@ import json
  
 url = "http://127.0.0.1:5000/photo"
 # 图片地址
-file_path='../../../data/Raw_data/IMG_20221207_174551.jpg'
+file_path='./test.JPG'
 # 图片名
 file_name=file_path.split('/')[-1]
 # 二进制打开图片
