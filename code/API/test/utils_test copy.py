@@ -40,7 +40,7 @@ def quick_judge(path,tol:int)->List[str]:
     B, G, R = cv2.split(img)
     HSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     H, S, V = cv2.split(HSV)
-    data = [R, G, B] #获得在全位置的RGBHSV数据
+    data = [R, G, B, H, S, V] #获得在全位置的RGBHSV数据
     shape = B.shape
 
     # 计算标准范围
