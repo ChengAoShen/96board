@@ -5,7 +5,7 @@ import cv2
 from ultralytics import YOLO
 
 # 加载模型文件
-model = YOLO("../model/train/runs/detect/train/weights/best.pt")
+model = YOLO("../model/train/runs/detect/train2/weights/best.pt")
 
 # 定义常量
 alphabet = ["A", "B", "C", "D", "E", "F", "G", "H"]
