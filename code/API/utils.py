@@ -1,11 +1,12 @@
 import uuid
+import numpy as np
 from typing import List
 
 import cv2
 from ultralytics import YOLO
 
 # 加载模型文件
-model = YOLO("../model/train/runs/detect/train/weights/best.pt")
+model = YOLO("../model/train/runs/detect/train2/weights/best.pt")
 
 # 定义常量
 alphabet = ["A", "B", "C", "D", "E", "F", "G", "H"]
@@ -40,10 +41,24 @@ def get_location(shape, id):
     #! 所以在提取颜色的时候需要行列反用
     return location_row, location_column
 
+def trapezoidal_correction(img:np.ndarray, points: List[tuple])->np.ndarray:
+    """使用四点定位进行梯形矫正
+
+    Args:
+        img (np.ndarray): 需要矫正的图片
+        points (List[tuple]): 顺时针四个点的坐标
+
+    Returns:
+        np.ndarray: 矫正裁剪后的图片
+    """
+    ...
+
+
 
 #########################################图片处理工具#########################################
 """
-这一模块中的所有工具都被设置为直接传入路径的类型，而非图片ID
+这一模块中的所有工具都被设置为直接传入路径的类型
+而非图片ID
 需要在flask主程序中设置好路径的配置
 """
 
@@ -64,6 +79,7 @@ def cutting_photo(path) -> List:
             ID_list.append(currentID)
 
             # 裁剪并保存图片
+            # TODO:需要在直接裁剪中加入梯形矫正
             crop_img = img[int(box[1]):int(box[3]), int(box[0]):int(box[2])]
             cv2.imwrite(f"./cache/cutting_photo/{currentID}.jpg", crop_img)
     return ID_list
