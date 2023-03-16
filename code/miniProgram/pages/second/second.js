@@ -130,15 +130,19 @@ Page({
       console.log("upload image")
       let _this = this;
       wx.uploadFile({
-        url: config.host + '/photo',
+        url:config.host + '/photo',
         filePath: _this.data.good_url,
         name: 'file',
         success(res) {
           _this.setData({
-            goods_photo_flag: res.data
+            goods_photo_flag: res.data,
           }),
           console.log(_this.data.goods_photo_flag)
-          },
+        _this.setData({
+         cutting_url:'http://127.0.0.1:5000/photo/cutting/'+_this.data.goods_photo_flag
+      })  
+          console.log(_this.data.cutting_url)
+        },
         fail(res){
           console.log("fail")
           console.log(res)
@@ -151,11 +155,14 @@ Page({
 
   //请求上传的图片
   ask(){
+    let _this = this
   wx.request({
-    url: "",
+    url: "config.host + '/photo/cutting'",
     method:'GET',
     success: (res) => {
-      console.log(res.data)
+     console.log(res.data)
+      console.log("////////////////")
+      ///////////////////////
     },
     fail: (err) => {
       console.log(this.msg)
@@ -172,9 +179,18 @@ calculateSum: function () {
   var sum = 0; 
   sum = parseInt(nums[0])*12+parseInt(nums[1])
    this.setData({ sum: sum }) 
+   this.sumup()
    this.commit()
   },
-  //////
+  //////sum多值构成数列
+  sumup(){
+  this.data.sendData.push(this.data.sum)
+  this.setData({
+    sendData:this.data.sendData
+  })
+
+
+  },
 
 
 //提交行列位置,已修改版本
@@ -182,11 +198,11 @@ commit(){
   let _this = this
   console.log(_this.data.send_url)
   wx.request({  
-   url: 'http://127.0.0.1:5000/data/'+_this.data.id,
+   url: 'http://127.0.0.1:5000/data/'+_this.data.goods_photo_flag,
    // url: 'http://127.0.0.1:5000/data/821e3657-a150-11ed-879e-126fd9321dcb',//测试方便版本，记删除
     method:'POST',
     data:{
-    "num":_this.data.sums
+    "num":_this.data.sendData
   },
     success (res) {
       console.log("co函数调用成功")
