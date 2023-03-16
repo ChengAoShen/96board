@@ -9,18 +9,28 @@ Page({
     goods_photo_flag: '',
     good_url: '',
     flag_tp: false,
-    host:config.host
+    host:config.host,
+
   },
 
-  //跳转到第二页
+
+  //跳转到选择分析页面
   JumpNext() {
     let _this = this
     wx.reLaunch({
       url: '/pages/second/second?url=' + _this.data.goods_photo_flag,
     })
   },
+  
+  //跳转到快速分析页面
+  JumpQuick() {
+    let _this = this
+    wx.reLaunch({
+      url: '/pages/test/test?url=' + _this.data.goods_photo_flag,
+    })
+  },
 
-  //跳转函数1
+  //弹出函数1
   uploadImg() {
     let _this = this
     wx.showActionSheet({
@@ -64,21 +74,30 @@ Page({
       success(res) {
         _this.setData({
           goods_photo_flag: res.data
-        })
+        }),
         console.log(_this.data.goods_photo_flag)
-        _this.JumpNext()
-      },
-      fail(res) {
+        },
+      fail(res){
         console.log("fail")
         console.log(res)
       }
     })
   },
 
+
+  //
+
+
+
+  //
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    //每次重加载switch清零
+    this.setData(
+      this.data.switch = 0, 
+    )
 
   },
 

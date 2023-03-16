@@ -1,0 +1,6 @@
+<!--pages/test/test.wxml-->
+<text>pages/test/test.wxml</text>
+<view>
+  <input placeholder="输入行列排布，“，”分隔" bindinput="inputChange"></input>
+  <button bindtap="calculateSum">提交</button>
+</view>

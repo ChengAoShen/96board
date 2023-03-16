@@ -1,21 +1,8 @@
-<view class="topper">
-  <image src="{{host}}/static/image/dd.png" mode="top left" class="image"></image>
-</view>
-
-<view class="hoder">
-  <view class="inner">
-     <block wx:if="False">
+<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+      <view class="in" bindtap="uploadImg"> 
         <image src="{{cutting_url}}"></image>
-     </block>
-  </view>
-             <view wx:for="{{colorData}}"></view>
-</view>
+      </view>
+  <view class="space2"></view>
+  <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="calculateSum"></input>
 
-<view class="text">
-  <input placeholder="请输入行列排布 eg:3,4为3行4列" bindinput="setData" ></input>
-  <button bindtap="commmit">确认行列选值</button>
 </view> 
-
-<view class="bottomhoder">
-  <image src="{{host}}/static/image/button.png" mode="left" class="bottom"></image>
-</view>

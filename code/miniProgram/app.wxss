@@ -1,4 +1,5 @@
 /**app.wxss**/
+/**app.wxss---->引入button的wxss**/
 .container {
   height: 100%;
   display: flex;

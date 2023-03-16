@@ -2,16 +2,17 @@
   "pages": [
     
     "pages/index/index",
-    "pages/second/second"
+    "pages/second/second",
+    "pages/test/test"
 
-    
+ 
   ],
   
   "window": {
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#efefef",
-    "navigationBarTitleText": "96板",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#1845d6",
+    "navigationBarTitleText": "SICAU-96bord",
+    "navigationBarTextStyle": "white"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
