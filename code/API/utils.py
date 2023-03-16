@@ -1,8 +1,11 @@
 import uuid
-import numpy as np
 from typing import List
 
 import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import optimize
+
 from ultralytics import YOLO
 
 # 加载模型文件
@@ -167,3 +170,64 @@ def quick_judge(path, tol: int=20) -> List[str]:
                 ans.append(num_to_char(num))
                 continue
     return ans
+
+#########################################数据分析工具#########################################
+def analyse_photo(path:str,id_list:list,mode:int)-> str:
+    """对于图片的RGBHSV进行分析绘制图片存在本地
+
+    Args:
+        path (str): 图片路径
+        id_list (list): 需要分析的孔的ID
+        mode (int):数据分析的模式
+                1(R-G),2(R-B),3(G-B),
+                4(R/B-G/B),5(R/G-B/G),6(G/R-B/R)
+
+    Returns:
+        str: 返回分析的图片存的位置
+    """
+    data=get_data(path,id_list)
+    # 分别得到RGBHSV的numpy数据
+    R,G,B,H,S,V=(np.array(x) for x in ([data[str(id)][0] for id in id_list],
+                    [data[str(id)][1] for id in id_list],
+                    [data[str(id)][2] for id in id_list],
+                    [data[str(id)][3] for id in id_list],
+                    [data[str(id)][4] for id in id_list],
+                    [data[str(id)][5] for id in id_list]))
+
+    plt.figure()
+    #拟合点
+    if mode==1:
+        x0=R
+        y0=G
+        plt.title("R-G")
+    elif mode==2:
+        x0=R
+        y0=B
+        plt.title("R-B")
+    elif mode==3:
+        x0=G
+        y0=B
+        plt.title("G-B")
+    elif mode==4:
+        x0=R/B
+        y0=G/B
+        plt.title("R/B-G/B")
+    elif mode==5:
+        x0=R/G
+        y0=B/G
+        plt.title("R/G-B/G")
+    elif mode==6:
+        x0=G/R
+        y0=B/R
+        plt.title("G/R-B/R")
+
+    #绘制散点
+    plt.scatter(x0[:], y0[:], 25, "red")
+    #直线拟合与绘制
+    A1, B1 = optimize.curve_fit(lambda x,A,B:A*x+B, x0, y0)[0]
+    x1 = np.arange(0, 255, 0.01)
+    y1 = A1*x1 + B1
+    plt.plot(x1, y1, "blue")
+    id = uuid.uuid1()
+    plt.savefig(f"./cache/analyse_photo/{id}.jpg",format="jpg")
+    return str(id)

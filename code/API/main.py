@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 from flask import request, Flask, Response, jsonify
 
-from utils import cutting_photo, get_data,quick_judge
+from utils import cutting_photo, get_data,quick_judge,analyse_photo
 
 app = Flask(__name__)
 
@@ -44,8 +44,6 @@ def get_RGB(imageId):
     data = request.json["num"]
     path = f"./cache/cutting_photo/{imageId}.jpg"
     ans = get_data(path,data)
-    print(ans)
-    print(type(ans))
     return jsonify(ans)
 
 # 对于图片进行快检
@@ -53,6 +51,25 @@ def get_RGB(imageId):
 def quick_detection(imageId):
     path = f"./cache/cutting_photo/{imageId}.jpg"
     return str(quick_judge(path))
+
+
+@app.route("/analyse/<imageId>", methods=['POST'])
+def analyse(imageId):
+    path = f"./cache/cutting_photo/{imageId}.jpg"
+    data = request.json["num"]
+    mode = request.json["mode"]
+
+    return analyse_photo(path,data,mode)
+    
+    
+# 分析图片返回接口
+@app.route("/photo/analyse/<imageId>")
+def get_analyse_image(imageId):
+    with open(f'.cache/analyse_photo/{imageId}.jpg', 'rb') as f:
+        image = f.read()
+        resp = Response(image, mimetype="image/jpg")
+        return resp
+
 
 # 静态图片返回接口
 @app.route("/static/image/<fileName>")

@@ -15,6 +15,11 @@
 
 访问在请求POST之后得到的图片URL，可以得到裁剪后得出的96孔板图片
 
+### /photo/analyse/\<imageId\>
+请求模式:GET
+    返回所需要的图片
+
+
 ### /data/\<imageID\>
 请求模式:POST
 
@@ -40,6 +45,34 @@ data中的key为孔位号，value为一个数组，数组中的每一个元素�
 }
 ```
 
+### /analyse/\<imageId\>
+
+请求模式:POST
+
+以JSON的格式发送一个需要请求的孔位信息，服务器会返回这个孔位的化学数据
+
+* 发送格式
+    
+    num属性包含了需要请求的孔位号,mode代表需要的图片模式
+
+    mode:1(R-G),2(R-B),3(G-B),4(R/B-G/B),5(R/G-B/G),6(G/R-B/R)
+```json
+{
+    "num":[1,2,38,96],
+    "mode":1
+}
+```
+
+* 返回格式
+    
+    返回所需要的图片的imageID
+
+
 ### /quick_detection/\<imageId\>
 请求模式:GET
 直接访问这个URL，返回字符串，其中包含所有被检测出来的孔
+
+### /static/image/<fileName>
+请求模式:GET
+直接访问这个URL，fileName为文件名，返回所需要的图片
+
