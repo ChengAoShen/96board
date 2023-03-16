@@ -1,25 +1,8 @@
-<view class="topper">
-  <image src="{{host}}/static/image/dd.png" mode="top left" class="image"></image>
-</view>
-
-<view class="hoder">
-  <view class="inner">
-
+<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+      <view class="in" bindtap="uploadImg"> 
         <image src="{{cutting_url}}"></image>
-   
-  </view>       
-</view>
-    <view><view>{{colorData}}</view></view>
+      </view>
+  <view class="space2"></view>
+  <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="calculateSum"></input>
 
-<view class="text" style="opacity:{{1}}">
-<form bindsubmit="formSubmit">
-  <input type='text' name='hang'  type="primary" placeholder="请输入行排布"  ></input>
-  <input type='text' name='lie' placeholder="请输入列排布"   ></input>
-  <button bindtap="commit" form-type="submit"  style="opacity:{{0.4}}">确认行列选值</button>
-  <button  formType="reset" style="opacity:{{0.5}}">清空</button>
-</form>
 </view> 
-
-<view class="bottomhoder">
-  <image src="{{host}}/static/image/button.png" mode="left" class="bottom"></image>
-</view>

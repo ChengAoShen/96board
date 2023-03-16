@@ -1,13 +1,13 @@
-<view class="whole1">
-  <view class="container1">
-    <block wx:if="{{flag_tp}}">
-      <image src="{{good_url}}" mode="aspectFit"></image>
-    </block>
-    <block wx:if="{{!flag_tp}}">
-      <image class="page1" src="{{host}}/static/image/click.png" mode="widthFix" bindtap="uploadImg"></image>
-    </block>
-  </view>
-  <block wx:if="{{good_url}}">
-    <button bindtap="handIN">确认选择该图片</button>
-  </block>
+<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+  <view class="space"></view>
+  <button bindtap="JumpNext" style="opacity: {{0.6}};">
+    <span>孔位分析</span>
+    <view class="liquid"></view>
+  </button>
+   <view class="space2"></view>
+  <button bindtap="JumpQuick" style="opacity: {{0.6}};">
+    <span>快速分析</span>
+    <view class="liquid"></view>
+  </button>
+
 </view>

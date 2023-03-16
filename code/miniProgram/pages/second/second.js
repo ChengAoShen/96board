@@ -1,5 +1,7 @@
 // second/second/second.js
 import config from '../../utils/config'
+var app=getApp();
+var host = app.globalData.host;
 Page({
 
   /**
@@ -7,26 +9,34 @@ Page({
    */
   data: {
     cutting_url:'',
-    host:config.host,
+  //  host:config.host,
     colorData:[],
     sendData:[],
     send_url:'',
     id:'',
+    sum:0,
+    nums:0,
+    goods_photo_flag: '',
+    good_url: '',
+    flag_tp: false,
+    host:config.host,
+    inputValue:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let url = config.host+options.url
-    let url2 = config.host+/data/+options.url
-    let id =options.url
-    console.log(url2)
-    this.setData({
-      cutting_url:'http://127.0.0.1:5000/photo/cutting/'+id,
-      send_url:url2,
-      id:options.url,
-    })
+ //   let url = config.host+options.url
+ //   let url2 = config.host+/data/+options.url
+ //   let id =options.url
+ //   console.log(url2)
+ //   this.setData({
+     // cutting_url:'http://127.0.0.1:5000/photo/cutting/'+id,注：拼接之后未知原因无法正常运行
+ //    cutting_url:'http://127.0.0.1:5000/photo/cutting/821e3657-a150-11ed-879e-126fd9321dcb',
+ //     send_url:url2,
+ //     id:options.url,
+//  })
   },
 
   /**
@@ -71,6 +81,74 @@ Page({
 
   },
 
+
+  concel(){
+  this.setData({
+      inputValue: ''
+  })
+
+  },
+/////////////////////////
+    //弹出是否选择照片框架
+    uploadImg() {
+      let _this = this
+      wx.showActionSheet({
+        itemList: ['从手机相册选择'],
+        success(res) {
+          console.log(res.tapIndex)
+          if (res.tapIndex == 0) {
+            _this.chooseImage()
+  
+          }
+        },
+        fail(res) {
+          console.log(res.errMsg)
+        }
+      })
+    },
+  
+    //选择照片
+    chooseImage() {
+      let _this = this
+      wx.chooseMedia({
+        success(res) {
+          const tempFilePaths = res.tempFiles[0].tempFilePath
+          console.log(tempFilePaths)
+          _this.setData({
+            flag_tp: true,
+            good_url: tempFilePaths
+          })
+        }
+      })
+      _this.handIN()
+    },
+  
+  
+  
+    //上传图片，正确版本
+    handIN() {
+      console.log("upload image")
+      let _this = this;
+      wx.uploadFile({
+        url: config.host + '/photo',
+        filePath: _this.data.good_url,
+        name: 'file',
+        success(res) {
+          _this.setData({
+            goods_photo_flag: res.data
+          }),
+          console.log(_this.data.goods_photo_flag)
+          },
+        fail(res){
+          console.log("fail")
+          console.log(res)
+        }
+      })
+    },
+////////////    
+
+
+
   //请求上传的图片
   ask(){
   wx.request({
@@ -84,34 +162,38 @@ Page({
     },
   })
   },
-  //更改值
-  formSubmit: function (e) {
-    let _this = _his
-    console.log(e.detail.value)
-    let name = e.detail.value.hang
-    let name2 = e.detail.value.lie
-    let name3 =(Number(name)-1)*12+Number(name2)
-    this.setData({
-      sendData:[_this.data.sendData +' '+name3]
-    })
-    console.log(name3)
+  //更改值，新增更改值的方法
+  
+  inputChange: function (e) {
+    this.setData({ nums: e.detail.value });
+},
+calculateSum: function () { 
+  var nums = this.data.nums.split(','); 
+  var sum = 0; 
+  sum = parseInt(nums[0])*12+parseInt(nums[1])
+   this.setData({ sum: sum }) 
+   this.commit()
   },
+  //////
 
-//提交行列位置
+
+//提交行列位置,已修改版本
 commit(){
   let _this = this
   console.log(_this.data.send_url)
   wx.request({  
-    url: 'http://127.0.0.1:5000/data/'+_this.data.id,
+   url: 'http://127.0.0.1:5000/data/'+_this.data.id,
+   // url: 'http://127.0.0.1:5000/data/821e3657-a150-11ed-879e-126fd9321dcb',//测试方便版本，记删除
     method:'POST',
     data:{
-    "num":[_this.data.sendData]
+    "num":_this.data.sums
   },
     success (res) {
       console.log("co函数调用成功")
       console.log(res.data)
       _this.setData({
-        colorData:[_this.data.colorData+[ res.data[14][0]+ ','+res.data[14][1]+ ','+res.data[14][2]+','+res.data[14][3]+','+res.data[14][4]+','+res.data[14][5] ] ]
+        colorData:[ res.data[_this.data.sendData][0]+ ','+res.data[_this.data.sendData][1]+ ','+res.data[_this.data.sendData][2]+','+res.data[_this.data.sendData][3]+','+res.data[_this.data.sendData][4]+','+res.data[_this.data.sendData][5] ].concat(_this.data.colorData)
+       // colorData:res.data
       })
     },
     fail(res){
