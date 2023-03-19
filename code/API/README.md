@@ -45,7 +45,7 @@ data中的key为孔位号，value为一个数组，数组中的每一个元素�
 }
 ```
 
-### /analyse/\<imageId\>
+### /photo/analyse/\<imageId\>
 
 请求模式:POST
 

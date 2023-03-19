@@ -31,8 +31,8 @@ import json
 
 
 # --------分析测试---------
-url = f"http://127.0.0.1:5000/analyse/abcabc"
-data = {"num":[13,14,15,16,17,18,19,20],"mode":2}
+url = f"http://127.0.0.1:5001/analyse/25e731a8-c654-11ed-afef-3effe0df1b5c"
+data = {"num":[13,14,15,16,17,18,19,20],"mode":1}
 r = requests.post(url,json=data)
 print(r.text)
 

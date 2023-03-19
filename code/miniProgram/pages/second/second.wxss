@@ -132,3 +132,10 @@ button {
    transform: translate(-50%, -75%) rotate(360deg);
   }
  }
+
+ .gogo{
+   position: fixed;
+   top: 1000rpx;
+   right: 0px;
+   front-size:24rpx;
+ }

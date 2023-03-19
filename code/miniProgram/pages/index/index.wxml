@@ -5,7 +5,7 @@
     <view class="liquid"></view>
   </button>
    <view class="space2"></view>
-  <button bindtap="JumpQuick" style="opacity: {{0.6}};">
+  <button bindtap="uploadImg" style="opacity: {{0.6}};">
     <span>快速分析</span>
     <view class="liquid"></view>
   </button>

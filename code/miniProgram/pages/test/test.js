@@ -6,7 +6,8 @@ Page({
    */
   data: {
     sum:0,
-    nums:0
+    nums:0,
+    
    },
   /**
    * 更改值函数
@@ -30,6 +31,7 @@ calculateSum: function () {
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
 
   },
 

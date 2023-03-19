@@ -1,7 +1,5 @@
 // second/second/second.js
 import config from '../../utils/config'
-var app=getApp();
-var host = app.globalData.host;
 Page({
 
   /**
@@ -130,15 +128,19 @@ Page({
       console.log("upload image")
       let _this = this;
       wx.uploadFile({
-        url: config.host + '/photo',
+        url:config.host + '/photo',
         filePath: _this.data.good_url,
         name: 'file',
         success(res) {
           _this.setData({
-            goods_photo_flag: res.data
+            goods_photo_flag: res.data,
           }),
           console.log(_this.data.goods_photo_flag)
-          },
+        _this.setData({
+         cutting_url:config.host+'/photo/cutting/'+_this.data.goods_photo_flag
+      })  
+          console.log(_this.data.cutting_url)
+        },
         fail(res){
           console.log("fail")
           console.log(res)
@@ -151,11 +153,14 @@ Page({
 
   //请求上传的图片
   ask(){
+    let _this = this
   wx.request({
-    url: "",
+    url: "config.host + '/photo/cutting'",
     method:'GET',
     success: (res) => {
-      console.log(res.data)
+     console.log(res.data)
+      console.log("////////////////")
+      ///////////////////////
     },
     fail: (err) => {
       console.log(this.msg)
@@ -163,7 +168,6 @@ Page({
   })
   },
   //更改值，新增更改值的方法
-  
   inputChange: function (e) {
     this.setData({ nums: e.detail.value });
 },
@@ -172,9 +176,18 @@ calculateSum: function () {
   var sum = 0; 
   sum = parseInt(nums[0])*12+parseInt(nums[1])
    this.setData({ sum: sum }) 
-   this.commit()
+   this.sumup()
+
   },
-  //////
+  //////sum多值构成数列
+  sumup(){
+  this.data.sendData.push(this.data.sum)
+  this.setData({
+    sendData:this.data.sendData
+  })
+ this.commit()
+ console.log("commit again")
+  },
 
 
 //提交行列位置,已修改版本
@@ -182,29 +195,77 @@ commit(){
   let _this = this
   console.log(_this.data.send_url)
   wx.request({  
-   url: 'http://127.0.0.1:5000/data/'+_this.data.id,
-   // url: 'http://127.0.0.1:5000/data/821e3657-a150-11ed-879e-126fd9321dcb',//测试方便版本，记删除
+   url: config.host+'/data/'+_this.data.goods_photo_flag,
     method:'POST',
     data:{
-    "num":_this.data.sums
+    "num":_this.data.sendData
   },
     success (res) {
-      console.log("co函数调用成功")
-      console.log(res.data)
+      console.log("commit函数调用成功")
+      let list = res.data
+      delete list.__proto__
+      console.log(res.data) 
+
+
+/////////
+    //使用for循环遍历数组的元素，并粘上src
+////////////将零散的data放到名为{{sum}}的键下
+// var a = list[_this.data.sum]; // 获取数字变量 a 的值
+// var arr = []; // 定义一个空数组 arr
+// a.forEach(function(item, index) {
+//   if (index) {
+//     arr.push(item);
+//   }
+// });
+///////////////将obj转化为array
+var myArray = [];
+Object.keys(list).forEach(function(key) {
+  myArray.push({
+    key: key,
+    value: list[key]
+  });
+});
+
+/////////////
       _this.setData({
-        colorData:[ res.data[_this.data.sendData][0]+ ','+res.data[_this.data.sendData][1]+ ','+res.data[_this.data.sendData][2]+','+res.data[_this.data.sendData][3]+','+res.data[_this.data.sendData][4]+','+res.data[_this.data.sendData][5] ].concat(_this.data.colorData)
-       // colorData:res.data
-      })
+   //   colorData:[ res.data[_this.data.sendData][0]+ ','+res.data[_this.data.sendData][1]+ ','+res.data[/_this.data.sendData][2]+','+res.data[_this.data.sendData][3]+','+res.data[_this.data.sendData][4]+','+res.data[_this.data.sendData][5] ].concat(_this.data.colorData)
+      colorData:myArray
+    //  colorData: Array.from(list).concat(_this.data.colorData)
+
+     //     colorData:arr
+  })
     },
     fail(res){
       console.log("fail")
       console.log(res)
     },
   })
-  
-
 },
-  /**
+  
+  //新增点击图片删除列表函数
+  deleteItem: function(e) {
+    console.log(e.currentTarget)
+    var index = e.currentTarget.dataset.index;
+  
+    var colorData =  this.data.colorData                                        //从sendata中删除已经被选择删除的数字
+    console.log(index)
+ //   var colorData = this.data.colorData).slice();
+     colorData.splice(index, 1); 
+     this.setData({ 
+      colorData: colorData }) 
+},
+
+//////
+
+goLast(){
+  let that = this
+  wx.navigateTo({
+    url: '/pages/last/last?data='+JSON.stringify({s: this.data.sendData, id: this.data.goods_photo_flag}),
+  })
+},
+
+
+/**
    * 用户点击右上角分享
    */
   onShareAppMessage() {

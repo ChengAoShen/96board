@@ -4,5 +4,11 @@
       </view>
   <view class="space2"></view>
   <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="calculateSum"></input>
+    <view wx:for="{{colorData}}" wx:key="index">{{item.value}}  
+      <image src="{{host}}/static/image/icon.png"  style="height: 50rpx;width: 50rpx;" bindtap="deleteItem"></image>
+    </view>
+<div style="z-index: 30;">
+<button bindtap="goLast" class="gogo">跳转</button>
+</div>
 
 </view> 

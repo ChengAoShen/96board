@@ -61,6 +61,7 @@ Page({
         })
       }
     })
+    _this.handIN()
   },
 
   //上传图片
@@ -76,6 +77,7 @@ Page({
           goods_photo_flag: res.data
         }),
         console.log(_this.data.goods_photo_flag)
+        _this.JumpQuick()
         },
       fail(res){
         console.log("fail")
@@ -94,13 +96,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    //每次重加载switch清零
-    this.setData(
-      this.data.switch = 0, 
-    )
-
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -65,7 +65,7 @@ def analyse(imageId):
 # 分析图片返回接口
 @app.route("/photo/analyse/<imageId>")
 def get_analyse_image(imageId):
-    with open(f'.cache/analyse_photo/{imageId}.jpg', 'rb') as f:
+    with open(f'./cache/analyse_photo/{imageId}.jpg', 'rb') as f:
         image = f.read()
         resp = Response(image, mimetype="image/jpg")
         return resp
@@ -84,4 +84,4 @@ def get_static_image(fileName):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5001,debug=True)
