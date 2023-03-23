@@ -1,13 +1,23 @@
 import base64
 import uuid
+import os
 
 import numpy as np
 import cv2
 from flask import request, Flask, Response, jsonify
+from flask_apscheduler import APScheduler
+import datetime
 
 from utils import cutting_photo, get_data,quick_judge,analyse_photo
 
 app = Flask(__name__)
+
+class Config(object):
+    SCHEDULER_API_ENABLED = True
+
+app.config.from_object(Config())
+scheduler = APScheduler()
+
 
 # 图片上传接口
 @app.route("/photo", methods=['POST'])
@@ -80,8 +90,15 @@ def get_static_image(fileName):
         return resp
 
 
-# TODO:制定定时清理图片的任务
+# 每天凌晨清理缓存
+@scheduler.task('cron', id='rm_photo',day="*",hour=0, minute=0)
+def clear_photo():
+    os.system("rm -rf ./cache/analyse_photo/*")
+    os.system("rm -rf ./cache/cutting_photo/*")
+    os.system("rm -rf ./cache/raw_photo/*")
 
 
 if __name__ == "__main__":
-    app.run(port=5001,debug=True)
+    scheduler.init_app(app)
+    scheduler.start()
+    app.run(host='0.0.0.0',port=5001,debug=False)
