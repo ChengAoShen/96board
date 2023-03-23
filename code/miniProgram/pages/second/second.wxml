@@ -1,14 +1,19 @@
-<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;" >
       <view class="in" bindtap="uploadImg"> 
         <image src="{{cutting_url}}"></image>
       </view>
   <view class="space2"></view>
-  <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="calculateSum"></input>
-    <view wx:for="{{colorData}}" wx:key="index">{{item.value}}  
-      <image src="{{host}}/static/image/icon.png"  style="height: 50rpx;width: 50rpx;" bindtap="deleteItem"></image>
+  <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="test"></input>
+  <text class="text">-----------rgb-----hsv-------------------</text>
+   
+    <view wx:for="{{colorData}}"  wx:key="key">
+    (  {{(item.key-item.key % 12)/12}} , {{ item.key % 12 === 0 ? 12 : item.key % 12 }} )
+    {{item.value}}  
+    <image  src= "{{host}}/static/image/icon.png" data-key="{{item.key}}"   style="height: 50rpx;width:50rpx;" bindtap="deleteItem"></image>
     </view>
-<div style="z-index: 30;">
-<button bindtap="goLast" class="gogo">跳转</button>
+<div style="z-index: 30">
+<button bindtap="goLast" class="gogo"  bindinput="getMode">生成</button>
 </div>
+<input placeholder="    请输入需要的模式" class="gogo2"  bindtap="introduction" bindinput="getMode1"></input>
 
 </view> 

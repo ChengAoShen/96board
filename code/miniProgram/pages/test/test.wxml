@@ -1,5 +1,3 @@
-
-<view>
-  <input placeholder="输入行列排布，“，”分隔" bindinput="inputChange"></input>
-  <button bindtap="calculateSum">提交</button>
+<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;"  class="in">
+<text>{{text}}</text>
 </view>

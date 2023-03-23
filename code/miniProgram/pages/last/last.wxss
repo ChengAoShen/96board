@@ -1,1 +1,12 @@
-/* pages/last/last.wxss */
+.in{
+  border: 2rpx solid black;
+  margin: 2rpx;
+  text-align:center;
+  height: 550rpx;
+  width: 740rpx;
+
+}
+.space{
+  height: 250rpx;
+
+}

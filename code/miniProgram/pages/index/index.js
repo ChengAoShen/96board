@@ -59,9 +59,10 @@ Page({
           flag_tp: true,
           good_url: tempFilePaths
         })
+        _this.handIN()
       }
     })
-    _this.handIN()
+
   },
 
   //上传图片

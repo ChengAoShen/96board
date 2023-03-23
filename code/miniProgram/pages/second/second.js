@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pre:'',
     cutting_url:'',
-  //  host:config.host,
     colorData:[],
     sendData:[],
     send_url:'',
@@ -19,22 +19,16 @@ Page({
     flag_tp: false,
     host:config.host,
     inputValue:'',
+    flag:1,
+    mode:0,
+    src:"http://127.0.0.1:5001/static/image/icon.png"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
- //   let url = config.host+options.url
- //   let url2 = config.host+/data/+options.url
- //   let id =options.url
- //   console.log(url2)
- //   this.setData({
-     // cutting_url:'http://127.0.0.1:5000/photo/cutting/'+id,注：拼接之后未知原因无法正常运行
- //    cutting_url:'http://127.0.0.1:5000/photo/cutting/821e3657-a150-11ed-879e-126fd9321dcb',
- //     send_url:url2,
- //     id:options.url,
-//  })
+
   },
 
   /**
@@ -70,23 +64,47 @@ Page({
    */
   onPullDownRefresh() {
 
+
+  },
+  //
+  introduction(){
+    wx.showToast({
+      title: 'mode:1(R-G) , 2(R-B) , 3(G-B) , 4(R/B-G/B) , 5(R/G-B/G) , 6(G/R-B/R)',
+      icon:'none',
+      duration:5000,
+    })
   },
 
+  //
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
 
   },
-
-
-  concel(){
+// 检验mode输入格式并获取值
+getMode1:function (e){
   this.setData({
-      inputValue: ''
+    inputValue:e.detail.value
   })
+  this.getMode()
+},
 
-  },
-/////////////////////////
+getMode :function (e) {
+  console.log('getMode被调用')
+  let input = this.data.inputValue 
+  if (input !== "1" && input !== "2"&& input !== "3"&& input !== "4"&& input !== "5"&& input !== "6" && input !== " ") {  
+    wx.showToast({
+      title: '请正确输入模式数字',
+      icon:'error'
+    })
+  } else {
+    this.setData({ mode:input});  
+  }
+},
+
+////////其他新增要求//////////////////////
+//////////图片＋行列输入板块///////////////
     //弹出是否选择照片框架
     uploadImg() {
       let _this = this
@@ -95,9 +113,27 @@ Page({
         success(res) {
           console.log(res.tapIndex)
           if (res.tapIndex == 0) {
-            _this.chooseImage()
+            // _this.chooseImage()
   
           }
+          //
+          wx.chooseMedia({
+
+            success:res => {
+              const tempFilePaths = res.tempFiles[0].tempFilePath
+              console.log(tempFilePaths)
+              _this.setData({
+                flag_tp: true,
+                good_url: tempFilePaths
+              })
+              _this.handIN()
+            },
+            fail:res=>{
+              console.log("本机图片src生成fail")
+            }
+          })
+          //
+
         },
         fail(res) {
           console.log(res.errMsg)
@@ -108,16 +144,7 @@ Page({
     //选择照片
     chooseImage() {
       let _this = this
-      wx.chooseMedia({
-        success(res) {
-          const tempFilePaths = res.tempFiles[0].tempFilePath
-          console.log(tempFilePaths)
-          _this.setData({
-            flag_tp: true,
-            good_url: tempFilePaths
-          })
-        }
-      })
+
       _this.handIN()
     },
   
@@ -169,8 +196,26 @@ Page({
   },
   //更改值，新增更改值的方法
   inputChange: function (e) {
-    this.setData({ nums: e.detail.value });
+    this.setData({pre:e.detail.value});
+
 },
+//
+test(){
+  let that = this
+  let input = this.data.pre
+  let regex = /^\d+,\d+$|^\d+,\d+$/
+if (!regex.test(input)) {
+wx.showToast({
+  title: '输入格式错误',
+  icon:'error',
+  duration:1000,
+})
+} else {
+this.setData({ nums: input });
+that.calculateSum()
+}
+},
+//
 calculateSum: function () { 
   var nums = this.data.nums.split(','); 
   var sum = 0; 
@@ -206,18 +251,6 @@ commit(){
       delete list.__proto__
       console.log(res.data) 
 
-
-/////////
-    //使用for循环遍历数组的元素，并粘上src
-////////////将零散的data放到名为{{sum}}的键下
-// var a = list[_this.data.sum]; // 获取数字变量 a 的值
-// var arr = []; // 定义一个空数组 arr
-// a.forEach(function(item, index) {
-//   if (index) {
-//     arr.push(item);
-//   }
-// });
-///////////////将obj转化为array
 var myArray = [];
 Object.keys(list).forEach(function(key) {
   myArray.push({
@@ -228,12 +261,18 @@ Object.keys(list).forEach(function(key) {
 
 /////////////
       _this.setData({
-   //   colorData:[ res.data[_this.data.sendData][0]+ ','+res.data[_this.data.sendData][1]+ ','+res.data[/_this.data.sendData][2]+','+res.data[_this.data.sendData][3]+','+res.data[_this.data.sendData][4]+','+res.data[_this.data.sendData][5] ].concat(_this.data.colorData)
       colorData:myArray
-    //  colorData: Array.from(list).concat(_this.data.colorData)
-
-     //     colorData:arr
   })
+  //
+  let colorData = _this.data.colorData
+  let src = _this.data.src
+  colorData.forEach(data => {
+    data.src =src;
+    console.log(data.src);
+   console.log("添加src成功")
+  })
+
+
     },
     fail(res){
       console.log("fail")
@@ -241,27 +280,38 @@ Object.keys(list).forEach(function(key) {
     },
   })
 },
-  
+
   //新增点击图片删除列表函数
   deleteItem: function(e) {
-    console.log(e.currentTarget)
-    var index = e.currentTarget.dataset.index;
-  
-    var colorData =  this.data.colorData                                        //从sendata中删除已经被选择删除的数字
+    console.log(e.currentTarget.dataset)
+    var index =parseInt( e.currentTarget.dataset.key);  
+    var colorData =  this.data.colorData                                        
+    var sendData =  this.data.sendData                                        
+    //从sendata中删除已经被选择删除的数字
     console.log(index)
- //   var colorData = this.data.colorData).slice();
+    //var colorData = this.data.colorData).slice();
      colorData.splice(index, 1); 
+     console.log("成功实现返回index删除数据")
+     let id = sendData.indexOf(index);
+     console.log('id')
+     console.log(id)
+     sendData.splice(id,1);
      this.setData({ 
-      colorData: colorData }) 
+ //     colorData: colorData,
+      sendData:sendData,
+    }) 
+    this.commit()
 },
 
 //////
 
 goLast(){
   let that = this
+  if(that.data.mode){
   wx.navigateTo({
-    url: '/pages/last/last?data='+JSON.stringify({s: this.data.sendData, id: this.data.goods_photo_flag}),
+    url: '/pages/last/last?data='+JSON.stringify({s: this.data.sendData, id: this.data.goods_photo_flag,mode:this.data.mode}),
   })
+}
 },
 
 

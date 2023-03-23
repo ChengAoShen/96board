@@ -1,8 +1,8 @@
 {
   "pages": [
-    
+  
     "pages/index/index",
-    "pages/second/second",
+    "pages/second/second", 
     "pages/test/test",
     "pages/last/last"
  

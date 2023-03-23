@@ -45,7 +45,8 @@
 }
 .text{
   width:100%;
-  background-color:lightsteelblue;
+  font-size:40rpx;
+  font-weight: bold;
 }
 .in{
   border: 2rpx solid black;
@@ -137,5 +138,10 @@ button {
    position: fixed;
    top: 1000rpx;
    right: 0px;
-   front-size:24rpx;
  }
+
+ .gogo2{
+  position: fixed;
+  top: 1100rpx;
+  right: 0px;
+}

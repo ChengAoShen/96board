@@ -1,1 +1,6 @@
-/* pages/test/test.wxss */
+.in{
+  border: 2rpx solid black;
+  margin: 2rpx;
+  text-align:center;
+  height: 550rpx;
+}

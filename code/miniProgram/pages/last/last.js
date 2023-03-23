@@ -11,6 +11,7 @@ Page({
     rs:'',
     host:config.host,
     resrc:'',
+    mode:0
   },
 
   /**
@@ -20,9 +21,11 @@ Page({
     var data = JSON.parse(options.data);
     let s = data.s;
     let id = data.id;
+    let mode = data.mode
     this.setData({
       rs:s,
-      id:id
+      id:id,
+      mode:mode
     })
     this.ask()
   },
@@ -78,12 +81,16 @@ Page({
 
   //
   previewImg: function (e) {
+    let that = this
     var imgUrl = this.data.imgUrl;
     wx.previewImage({
-      current: imgUrl, // 当前显示图片的http链接
+      urls:[that.data.imgUrl],
       success: function (res) {
         console.log('预览成功！');
-      }
+      },
+      fail: (err) => {
+        console.log('preview发生错误')
+      },
     })
   },
   //
@@ -96,11 +103,12 @@ console.log("aaa")
       method:'POST',
       data: {
         "num":that.data.rs,
-        "mode":1
+        "mode": parseInt(that.data.mode),
       },
       success (res) {
         console.log(res.data)
         let src = res.data
+        console.log(src)
         that.setData({
           imgUrl:config.host+'/photo/analyse/'+src
         })
