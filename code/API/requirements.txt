@@ -1,10 +1,8 @@
 flask
 numpy
 matplotlib
-opencv-python
+# opencv-python
 requests
 ultralytics==8.0.17
-torch
-torchvision
 flask-apscheduler
 gunicorn

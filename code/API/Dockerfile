@@ -14,10 +14,15 @@ RUN ["apt-get","install","-y","python3"]
 RUN ["apt","install","-y","python3-pip"]
 
 COPY requirements.txt ./
-RUN ["pip","install","-r","requirements.txt","-i","https://pypi.tuna.tsinghua.edu.cn/simple"]
+RUN ["pip","install","opencv-python-headless","-i","https://mirrors.aliyun.com/pypi/simple"]
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+RUN ["pip","install","-r","requirements.txt","-i","https://mirrors.aliyun.com/pypi/simple"]
+RUN ["apt" ,"install" ,"-y" ,"libgl1-mesa-glx"]
+RUN ["apt-get","install", "-y"," libglib2.0-dev"]
 
 # 拷贝代码
 COPY . .
 
 # 运行的命令
-CMD ["gunicorn", "-c", "./gunicornConf.py","main:app"]
+#nohup gunicorn -c gunicornConf.py main:app &
+#nginx -c /API/nginx.conf
