@@ -154,11 +154,23 @@ getMode :function (e) {
     handIN() {
       console.log("upload image")
       let _this = this;
+      //////////////////////////标记一处也许需要后期的地点、、、、、、、、、、、、、、
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      if(_this.data.goods_photo_flag){
+        wx.hideLoading()
+      }
+
       wx.uploadFile({
         url:config.host + '/photo',
         filePath: _this.data.good_url,
         name: 'file',
         success(res) {
+          if(res.data){
+            wx.hideLoading()
+          }
           _this.setData({
             goods_photo_flag: res.data,
           }),
@@ -306,6 +318,10 @@ Object.keys(list).forEach(function(key) {
 //////
 
 goLast(){
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
   let that = this
   if(that.data.mode){
   wx.navigateTo({

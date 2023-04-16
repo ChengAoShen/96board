@@ -1,4 +1,5 @@
-<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+<view >
+<image src="../../images/ooA.png" class="img"></image>
 <view class="space"></view>
 <image src="{{imgUrl}}" mode="aspectFill" bindtap="previewImg" class="in"></image>
 </view>

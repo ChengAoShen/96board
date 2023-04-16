@@ -1,11 +1,17 @@
-<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;" >
+<view >
+  <image src="../../images/ooA.png" class="img"></image>
       <view class="in" bindtap="uploadImg"> 
         <image src="{{cutting_url}}"></image>
       </view>
   <view class="space2"></view>
-  <input placeholder="输入行列排布,分隔" bindinput="inputChange"  bindconfirm="test"></input>
-  <text class="text">-----------rgb-----hsv-------------------</text>
-   
+
+  <view class="box">
+  <input placeholder="输入行列排布,分隔" bindinput="inputChange" style="width: 750rpx;" class="input"></input> 
+   <image src="../../images/right.png" style="height: 50rpx;width:50rpx" class="photos" bindtap="test"></image>
+  </view>
+ <view class='take'>
+  =--------rgb-----hsv-----------
+ </view>
     <view wx:for="{{colorData}}"  wx:key="key">
     (  {{(item.key-item.key % 12)/12}} , {{ item.key % 12 === 0 ? 12 : item.key % 12 }} )
     {{item.value}}  

@@ -1,4 +1,5 @@
-<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;">
+<view >
+<image src="../../images/ooA.png" class="img"></image>
   <view class="space"></view>
   <button bindtap="JumpNext" style="opacity: {{0.6}};">
     <span>孔位分析</span>

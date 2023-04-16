@@ -142,6 +142,19 @@ button {
 
  .gogo2{
   position: fixed;
-  top: 1100rpx;
+  top: 1200rpx;
   right: 0px;
+}
+
+.input{
+  flex:1;
+}
+.photos{
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+}
+.box{
+  display:flex;
+  align-items: center;
 }

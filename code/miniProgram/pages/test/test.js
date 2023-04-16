@@ -9,7 +9,8 @@ Page({
     imagUrl:'',
     host:config.host,
     id:'',
-    text:""
+    text:"",
+    progressPercent: 0
     
    },
   /**
@@ -23,6 +24,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    //
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    }),
+      wx.hideLoading(2000)
+  
+  
+
+    //
     var url = options.url
     this.setData({
       id:url

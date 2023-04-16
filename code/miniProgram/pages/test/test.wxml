@@ -1,3 +1,4 @@
-<view style="background:url('{{host}}/static/image/ooA.png');width: 750rpx;height: 1500rpx;"  class="in">
+<view >
+ <image src="../../images/ooA.png" class="img"></image>
 <text>{{text}}</text>
 </view>

@@ -16,6 +16,11 @@ Page({
 
   //跳转到选择分析页面
   JumpNext() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+  
     let _this = this
     wx.reLaunch({
       url: '/pages/second/second?url=' + _this.data.goods_photo_flag,
@@ -69,6 +74,11 @@ Page({
   handIN() {
     console.log("upload image")
     let _this = this;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    }),
+    console.log('显示了假进度条')
     wx.uploadFile({
       url: config.host + '/photo',
       filePath: _this.data.good_url,
@@ -78,6 +88,7 @@ Page({
           goods_photo_flag: res.data
         }),
         console.log(_this.data.goods_photo_flag)
+
         _this.JumpQuick()
         },
       fail(res){
